@@ -1,5 +1,5 @@
 * {
-   font-family: Arial, Helvetica, sans-serif; 
+   font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -24,7 +24,7 @@ header {
 }
 
 #high-scores:hover {
-    color: blue;
+    color: navy;
 }
 
 #timer {
@@ -37,11 +37,12 @@ header {
     width: 40%;
     text-align: center;
 }
-.content h2 {
+#content-title {
     font-size: 34px;
 }
 
-.start-button {
+
+.button {
     background-color: lightseagreen;
     border: none;
     color: white;
@@ -50,7 +51,48 @@ header {
     font-size: 16px;
 }
 
-.start-button:hover {
+.button:hover {
     background-color: navy;
     cursor: pointer;
+}
+
+#quiz {
+    margin: auto;
+    justify-content: center;
+    padding: 40px;
+    width: 40%;
+    text-align: center;
+}
+
+#quiz-question {
+    margin-left: 10px;
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
+}
+
+.choices-button {
+    display: block;
+    margin: 15px auto;
+    background-color: lightseagreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.choices-button:hover {
+    background-color: midnightblue;
+    cursor: pointer;
+}
+
+#answer-result {
+    display: none;
+    margin-left: 10px;
+    color: red;
+    margin: 15px auto;
+    padding: 15px 32px;
+    text-align: center;
+    font-style: italic;
 }
