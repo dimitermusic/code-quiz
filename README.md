@@ -15,6 +15,11 @@
 * THEN I can save my initials and my score
 * TODO: collect html inputs of initials and score using DOM and store in variables. This variable must then be stored and appended to page using setitem and getitem methods.
 
+## Links
+
+* [Repository](https://github.com/dimitermusic/code-quiz.html)
+* [Deployed Site](https://dimitermusic.github.io/code-quiz.html/)
+
 ---
 
 © 2021 Dimiter Yordanov. All Rights Reserved.
