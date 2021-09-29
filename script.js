@@ -98,41 +98,13 @@ function quizQ1() {
     choice3.addEventListener("click", quizQ2)
     choice4.addEventListener("click", displayIncorrect)
     choice4.addEventListener("click", quizQ2)
+    }
+
+function quizQ2 () {
+    console.log("q2 is working")
 }
 
-function quizQ2() {
-    quizContainer.removeChildren
-    var quizQuestion = document.createElement("h1");
-    quizQuestion.innerHTML = questionOne.question;
-    questionEL.append(quizQuestion);
-    var choice1 = document.createElement("button");
-    choice1.className = "choices-button";
-    choice1.innerHTML = questionOne.choices[0];
-    choicesEl.append(choice1);
-    var choice2 = document.createElement("button");
-    choice2.className = "choices-button";
-    choice2.innerHTML = questionOne.choices[1];
-    choicesEl.append(choice2);
-    var choice3 = document.createElement("button");
-    choice3.className = "choices-button";
-    choice3.innerHTML = questionOne.choices[2];
-    choicesEl.append(choice3);
-    var choice4 = document.createElement("button");
-    choice4.className = "choices-button";
-    choice4.innerHTML = questionOne.choices[3];
-    choicesEl.append(choice4);
-    
-    choice2.addEventListener("click", displayCorrect)
-    choice2.addEventListener("click", quizQ2)
-    choice1.addEventListener("click", displayIncorrect)
-    choice1.addEventListener("click", quizQ2)
-    choice3.addEventListener("click", displayIncorrect)
-    choice3.addEventListener("click", quizQ2)
-    choice4.addEventListener("click", displayIncorrect)
-    choice4.addEventListener("click", quizQ2)
-}
-
-function quizRun() {
+function quizRun () {
     firstPage.style.display = "none";
     setTime();
     quizQ1();
