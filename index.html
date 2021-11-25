@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quiz</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Film Quiz</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
     <header>
-        <a id="high-scores" href="#">View Highscores</a>
-        <h1 id="timer">Time: 75</h1>
+        <h4 id="scoreBoard">Score: </h4>
+        <h4 id="time">Timer: </h4>
+        <h4 class="interactive" id="viewHighScores">View Highscores</h4>
     </header>
 
-    <main class="content">
-        <div>
-            <h2 id="content-title">Film Buff Quiz Challenge</h2>
+    <main>
+        <div id="quiz-info">
+            <div>
+                <h2 id="content-title">Film Buff Quiz Challenge</h2>
+            </div>
+            <div id="content-middle">
+                <p>Try to answer the following film-related questions within the time limit. Keep in mind that incorrect
+                    answers
+                    will penalize your score/time by ten seconds!</p>
+            </div>
         </div>
-        <div id="content-middle">
-            <p>Try to answer the following film-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-        </div>
-        <div>
-            <button class="button">Start Quiz</button>
-        </div>
+        <h2 id="question"></h2>
+        <ul id="highScoreCount"></ul>
+        <ol id="multipleChoice"></ol>
+        <form method="POST" id="yourName" data-state="hidden">
+            <div class="field">
+                <h3 id="scores"></h3>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name here" />
+            </div>
+            <button type="submit">Submit</button>
+
+        </form>
+        <button id="startBtn">Start Game</button>
+        <button id="playAgain">Play Again</button>
     </main>
 
-    <div id="quiz">
-        <div id="quiz-question">
-        </div>
-        <div>
-            <ul id="quiz-choices">
+    <script src="script.js"></script>
 
-            </ul>
-        </div>
-        <div>
-            <h2 id="answer-result">CORRECT!</h2>
-            <h2></h2>
-        </div>
-    </div>
-
-    <script src="./script.js"></script>
 </body>
+
 </html>

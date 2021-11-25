@@ -1,126 +1,171 @@
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// TODO: create a function that hides quiz start page and adds an html title and list of buttons using DOM node methods on button click.
-var startBtn = document.querySelector(".button")
-var timerEl = document.querySelector("#timer");
-var secondsLeft = 75;
-var firstPage = document.querySelector(".content")
-var quizContainer = ("#quiz")
-var questionEL = document.querySelector("#quiz-question")
-var choicesEl = document.querySelector("#quiz-choices")
-var displayResult = document.querySelector("#answer-result")
-var questionOne =
-    {
+// defines needed global variables
+var timerInterval, winnerScores;
+var x = 0;
+var score = 0;
+var secondsLeft = 40;
+var quizInfo = document.querySelector("#quiz-info")
+var olEl = document.querySelector("#multipleChoice");
+var scoreEl = document.querySelector("#scoreBoard");
+var timeEl = document.querySelector("#time");
+var h2El = document.querySelector("#question");
+var h3El = document.querySelector("#scores");
+var startBtn = document.querySelector("#startBtn");
+var submissionForm = document.querySelector("#yourName");
+var playAgain = document.querySelector("#playAgain");
+var viewHighScores = document.querySelector("#viewHighScores");
+var highScoreBoard = document.querySelector("#highScoreCount");
+var highScores = [];
+var myObj = {};
+var nameInput = document.querySelector("#name");
+var questionsArray = [
+  {
     question: "When was film invented?",
     choices: ["1740s", "1890s", "1910s", "1930s"],
-    answer: 2
-    }
-var questionTwo =
-    {
+    answer: "1890s"
+  },
+
+  {
     question: "What is the slowest speed the human brain can process can process images consecutively?",
     choices: ["2fps", "10fps", "11fps", "19fps"],
-    answer: 3
-    }
-var questionThree = 
-    {
+    answer: "11fps"
+  },
+
+  {
     question: "When was the first feature-length film produced?",
     choices: ["1804", "1892", "1906", "1921"],
-    answer: 3
-    }
-var questionFour = 
-    {
+    answer: "1906"
+  },
+
+  {
     question: "When did the first movie theaters film open?",
     choices: ["1890", "1907", "1911", "1952"],
-    answer: 2
-    }
-var questionFive = 
-    {
+    answer: "1907"
+  },
+
+  {
     question: "Where did the symbols from the famous matrix code come from?",
     choices: ["Hieroglyphs", "Windings", "Bootstrap", "Sushi Cookbook"],
-    answer: 4
-    }
+    answer: "Sushi Cookbook"
+  },
+];
 
-function setTime() {
-    // Sets interval in variable
-    var timerInterval = setInterval(function() {
-      secondsLeft--;
-      timerEl.textContent = "Time: " + secondsLeft;
-  
-      if(secondsLeft <1) {
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);
-        // Ends game
-        return
-      }
-    }, 1000);
+// Clear html elements from screen
+playAgain.setAttribute("style", "display:none");
+submissionForm.setAttribute("style", "display:none");
+
+// Store high scores to local storage and append to page
+function finalHighScores() {
+  localStorage.setItem("highScoreLeaders", JSON.stringify(highScores));
+  winnerScores = JSON.parse(localStorage.getItem("highScoreLeaders"));
+  highScores = winnerScores;
+  for (let i = 0; i < highScores.length; i++) {
+    var myScoringName = highScores[i].name;
+    var myScoringScore = highScores[i].score;
+    var liScores = document.createElement("li");
+    liScores.textContent = myScoringName + ": " + myScoringScore;
+    highScoreBoard.appendChild(liScores);
   }
-
-function displayCorrect() {
-    displayResult.textContent = "CORRECT!";
-    displayResult.style.display = "block";
-    displayResult.style.display = "block";
 }
 
-function displayIncorrect() {
-    displayResult.textContent = "INCORRECT!";
-    displayResult.style.display = "block";
+// Save user name and score
+submissionForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  highScoreBoard.innerHTML = ""
+  highScoreBoard.setAttribute("style", "display:block")
+  var nameText = nameInput.value.trim();
+  if (nameText === "") {
+    alert("Please enter your name");
+    return;
+  } else {
+    highScores = JSON.parse(localStorage.getItem("highScoreLeaders")) || [];
+    myObj["name"] = nameText;
+    myObj["score"] = score;
+    highScores.push(myObj);
+    finalHighScores();
+  }
+});
+
+// Clear page and show submission form
+function displayScore() {
+  clearInterval(timerInterval);
+  h2El.textContent = "High Scores";
+  h3El.textContent = "Your score: " + score;
+  scoreEl.textContent = "";
+  olEl.textContent = "";
+  submissionForm.setAttribute("style", "display:inline");
+  playAgain.setAttribute("style", "display:inline");
 }
-console.log(displayCorrect);
 
+function userChoice() {
+  // Check the user answer
+  if (this.innerHTML !== questionsArray[x].answer) {
+    secondsLeft -= 5;
+  } else {
+    score += 20;
+    scoreEl.textContent = "Score: " + score;
+  }
+  if (x < questionsArray.length - 1) {
+    x++;
+    quizQuestions();
+  } else {
+    displayScore();
+  }
+}
 
-function quizQ1() {
-    var quizQuestion = document.createElement("h1");
-    quizQuestion.innerHTML = questionOne.question;
-    questionEL.append(quizQuestion);
-    var choice1 = document.createElement("button");
-    choice1.className = "choices-button";
-    choice1.innerHTML = questionOne.choices[0];
-    choicesEl.append(choice1);
-    var choice2 = document.createElement("button");
-    choice2.className = "choices-button";
-    choice2.innerHTML = questionOne.choices[1];
-    choicesEl.append(choice2);
-    var choice3 = document.createElement("button");
-    choice3.className = "choices-button";
-    choice3.innerHTML = questionOne.choices[2];
-    choicesEl.append(choice3);
-    var choice4 = document.createElement("button");
-    choice4.className = "choices-button";
-    choice4.innerHTML = questionOne.choices[3];
-    choicesEl.append(choice4);
-    
-    choice2.addEventListener("click", displayCorrect)
-    choice2.addEventListener("click", quizQ2)
-    choice1.addEventListener("click", displayIncorrect)
-    choice1.addEventListener("click", quizQ2)
-    choice3.addEventListener("click", displayIncorrect)
-    choice3.addEventListener("click", quizQ2)
-    choice4.addEventListener("click", displayIncorrect)
-    choice4.addEventListener("click", quizQ2)
+// Display quiz questions on page using for loop to loop through questions array
+function quizQuestions() {
+  startBtn.setAttribute("style", "display:none");
+  h2El.textContent = questionsArray[x].question;
+  olEl.innerHTML = " ";
+  for (let i = 0; i < questionsArray[x].choices.length; i++) {
+    var quizChoice = questionsArray[x].choices[i];
+    var liEl = document.createElement("li");
+    liEl.classList.add("interactive");
+    liEl.textContent = quizChoice;
+    liEl.addEventListener("click", userChoice);
+    olEl.append(liEl);
+  }
+}
+
+// Listen for button click to start quiz
+document.querySelector("#startBtn").addEventListener("click", function () {
+  highScoreBoard.setAttribute("style", "display:none")
+  quizInfo.setAttribute("style", "display:none")
+  timerInterval = setInterval(function () {
+    if (secondsLeft > 0) {
+      secondsLeft--;
+      timeEl.textContent = "Timer: " + secondsLeft + " seconds left";
+    } else if (secondsLeft <= 0) {
+      displayScore();
     }
+  }, 1000);
+  quizQuestions();
+});
 
-function quizQ2 () {
-    console.log("q2 is working")
-}
+// Listen for button clikc to view high scores
+viewHighScores.addEventListener("click", function () {
+  highScoreBoard.innerHTML = ""
+  quizInfo.setAttribute("style", "display:none")
+  playAgain.setAttribute("style", "display:none")
+  startBtn.setAttribute("style", "display:inline")
+  clearInterval(timerInterval);
+  h2El.textContent = "High Scores";
+  scoreEl.textContent = " ";
+  olEl.textContent = " ";
+  if (JSON.parse(localStorage.getItem("highScoreLeaders") !== null)) {
+    winnerScores = JSON.parse(localStorage.getItem("highScoreLeaders"));
+    highScores = winnerScores;
+    for (let i = 0; i < highScores.length; i++) {
+      var myScoringName = highScores[i].name;
+      var myScoringScore = highScores[i].score;
+      var liScores = document.createElement("li");
+      liScores.textContent = myScoringName + ": " + myScoringScore;
+      highScoreBoard.appendChild(liScores);
+    }
+  }
+});
 
-function quizRun () {
-    firstPage.style.display = "none";
-    setTime();
-    quizQ1();
-}
-
-startBtn.addEventListener("click", quizRun)
-
-// WHEN I answer a question
-// THEN I am presented with another question
-// TODO: create condition in function that when a button is clicked, the current html is hidden and a new function with the next question is called.
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// TODO: create a timer using the setInterval method that subtracts 1 second off the clock with a conditional statement that if the current question is false, 10 seconds is subtracted instead.
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// TODO: create a conditional statement in the timer function that if the timer html is === 0 || the last question is answered, hide the game and show that state page with a new function.
-// WHEN the game is over
-// THEN I can save my initials and my score
-// TODO: collect html inputs of initials and score using DOM and store in variables. This variable must then be stored and appended to page using setitem and getitem methods.
+// Listen for button click to refresh page and play again
+playAgain.addEventListener("click", function () {
+  window.location.reload();
+});
