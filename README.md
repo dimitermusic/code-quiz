@@ -18,7 +18,7 @@ Simple JavaScript Quiz with questions for film buffs.
 
 ### Installation
 
-No installation required. You can visit the deployed link [here](https://dimitermusic.github.io/code-quiz.html/)!
+No installation required. You can visit the deployed link [here](https://dimitermusic.github.io/code-quiz)!
 
 ### Usage
 
@@ -49,9 +49,9 @@ No tests at this time.
 
 ### Links
 
-[Deployed Site](https://dimitermusic.github.io/code-quiz.html/)  
+[Deployed Site](https://dimitermusic.github.io/code-quiz)  
 
-[Github](https://github.com/dimitermusic/code-quiz.html)
+[Github](https://github.com/dimitermusic/code-quiz)
 
 ### Questions
 [Github](https://www.github.com/dimitermusic)  
